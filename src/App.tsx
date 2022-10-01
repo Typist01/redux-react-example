@@ -1,9 +1,20 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { useSelector } from 'react-redux'
+import { RootState, AppDispatch } from "./store/store"
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { incremented, amountAdded } from "./store/counter-slice"
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
+  const count = useAppSelector(state => state.counter.value)
+  const dispatch = useAppDispatch();
+
+  function handleClick() {
+    dispatch(amountAdded(3));
+
+  }
 
   return (
     <div className="App">
@@ -17,7 +28,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={handleClick}>
           count is {count}
         </button>
         <p>
@@ -27,7 +38,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-    </div>
+    </div >
   )
 }
 
